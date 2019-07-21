@@ -1,6 +1,4 @@
-import jwt from 'jsonwebtoken'
-import config from "../config"
-import { AuthenticationError } from "apollo-server-express"
+import { AuthenticationError } from 'apollo-server-express'
 
 export class User {
     public isAuthentic: boolean
@@ -8,10 +6,16 @@ export class User {
     private user: UserInterface
 
     constructor(headers:any){
-        this.user = {
-            _id: headers['user-id'],
-            email: headers['user-email'],
-            username: headers['user-username']
+        if(headers['user-id'] && headers['user-email'] && headers['user-username'] && headers['user-issuedat']) {
+            this.user = {
+                _id: headers['user-id'],
+                email: headers['user-email'],
+                username: headers['user-username'],
+                issuedAt: headers['user-issuedat']
+            }
+            this.isAuthentic = true
+        } else {
+            this.isAuthentic = false
         }
     }
 
@@ -25,12 +29,17 @@ export class User {
     }
 
     getId(){
-        return this.user._id
+        if(this.isAuthentic){
+            return this.user._id
+        } else {
+            throw new AuthenticationError('Not Authorized or Token Expired')
+        }
     }
 }
 
 interface UserInterface {
     _id: string,
     email: string,
-    username: string
+    username: string,
+    issuedAt: string
 }
