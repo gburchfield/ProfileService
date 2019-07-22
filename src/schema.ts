@@ -12,6 +12,20 @@ const typeDefs = gql `
         input_id: String!
     }
     
+    type UserProfile {
+        firstName: String!
+        lastName: String!
+        Gender: Gender!
+        birthDate: DateScalar
+    }
+    
+    scalar DateScalar
+    
+    enum Gender {
+        MALE
+        FEMALE
+    }
+    
 `
 
 export default typeDefs
