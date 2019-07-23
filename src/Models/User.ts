@@ -1,4 +1,5 @@
 import { AuthenticationError } from 'apollo-server-express'
+import {ObjectId} from "mongodb";
 
 export class User {
     public isAuthentic: boolean
@@ -28,11 +29,11 @@ export class User {
 
     }
 
-    getId(){
-        if(this.isAuthentic){
-            return this.user._id
+    getId(): ObjectId {
+        if(this.user){
+            return new ObjectId(this.user._id)
         } else {
-            throw new AuthenticationError('Not Authorized or Token Expired')
+            return null
         }
     }
 }

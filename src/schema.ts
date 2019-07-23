@@ -2,8 +2,12 @@ import {gql} from 'apollo-server-express'
 
 const typeDefs = gql `
     extend type Query {
-        Profile: String
+        Profile: UserProfile
         BasicProfileInputs: [Input]
+    }
+    
+    extend type Mutation {
+        BasicProfile(profile: BasicProfileInputs): UserProfile!
     }
     
     type Input {
@@ -16,7 +20,14 @@ const typeDefs = gql `
         firstName: String!
         lastName: String!
         Gender: Gender!
-        birthDate: DateScalar
+        birthDate: DateScalar!
+    }
+    
+    input BasicProfileInputs {
+        firstName: String!
+        lastName: String!
+        Gender: Gender!
+        birthDate: DateScalar!
     }
     
     scalar DateScalar

@@ -20,7 +20,7 @@ Promise.all([profiles_collection, inputs_collection]).then((collections) => {
         schema: buildFederatedSchema([{typeDefs, resolvers}]),
         context: ({req}) => {
             let user = new User(req.headers)
-            let profile = new Profile({profiles, inputs, authentic: user.isAuthentic})
+            let profile = new Profile({profiles, inputs, authentic: user.isAuthentic, user_id: user.getId()})
             return {
                 user,
                 profile
