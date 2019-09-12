@@ -2,7 +2,6 @@ import express from 'express'
 import { ApolloServer, AuthenticationError } from "apollo-server-express";
 import { buildFederatedSchema } from "@apollo/federation";
 import { createDb } from "./db";
-import { User } from "./Models/User";
 import { Profile } from "./Models/Profile"
 import config from './config'
 import typeDefs from './schema'
@@ -19,10 +18,8 @@ Promise.all([profiles_collection, inputs_collection]).then((collections) => {
     const server = new ApolloServer({
         schema: buildFederatedSchema([{typeDefs, resolvers}]),
         context: ({req}) => {
-            let user = new User(req.headers)
-            let profile = new Profile({profiles, inputs, authentic: user.isAuthentic, user_id: user.getId()})
+            let profile = new Profile({profiles, inputs, headers: req.headers})
             return {
-                user,
                 profile
             }
         }
