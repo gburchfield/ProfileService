@@ -1,4 +1,4 @@
-import { Collection} from "mongodb";
+import { Collection, ObjectId} from "mongodb";
 import { SecureResource } from "./SecureResource";
 
 export class Profile extends SecureResource {
@@ -17,12 +17,9 @@ export class Profile extends SecureResource {
         return inputs
     }
 
-    async getProfile(){
-        console.log(typeof this.user._id)
-        let id = this.user._id
-        console.log(id)
-        let User_profile = await this.profiles_collection.findOne({user_id: id}, {projection:{user_id:0,_id:0}})
-        console.log(User_profile)
+    async getProfile(user_id: string){
+        let id = (user_id) ? new ObjectId(user_id) : this.user._id
+        let User_profile = await this.profiles_collection.findOne({user_id: id}, {projection:{_id:0}})
         return User_profile
     }
 

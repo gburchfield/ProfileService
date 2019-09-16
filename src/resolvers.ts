@@ -17,5 +17,10 @@ export const resolvers = {
             return context.profile.addBasicProfile(args.profile)
         }
     },
-    DateScalar
+    DateScalar,
+    UserProfile: {
+        __resolveReference(reference:any, context: any) {
+            return context.profile.getProfile(reference.user_id)
+        }
+    }
 }

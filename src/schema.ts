@@ -16,7 +16,8 @@ const typeDefs = gql `
         input_id: String!
     }
     
-    type UserProfile {
+    type UserProfile @key(fields: "user_id") {
+        user_id: String!
         firstName: String!
         lastName: String!
         Gender: Gender!

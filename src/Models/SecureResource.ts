@@ -20,5 +20,6 @@ interface UserInterface {
     _id: ObjectId,
     email: string,
     username: string,
-    issuedAt: string
+    issuedAt: string,
+    roles: string
 }
