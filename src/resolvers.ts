@@ -6,15 +6,24 @@ export const resolvers = {
         Profile: (parent: any, args: any, context: any) => {
             return context.profile.getProfile()
         },
+        Profiles: (parent: any, args: any, context: any) => {
+            return context.profile.getProfiles()
+        },
         BasicProfileInputs: (parent: any, args: any, context: any) => {
             return context.profile.getBasicProfileInputs()
-        }
+        },
+        SportsTeams: (parent: any, args: any, context: any) => {
+            let { league } = args
+            return context.profile.getTeams(league)
+        },
     },
     Mutation: {
         BasicProfile: (parent: any, args: any, context: any) => {
-            console.log(args)
-            console.log(context)
             return context.profile.addBasicProfile(args.profile)
+        },
+        AddInput: (parent: any, args: any, context: any) => {
+            let { new_input } = args
+            return context.profile.addProfileInput(args)
         }
     },
     DateScalar,

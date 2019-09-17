@@ -9,16 +9,18 @@ import {resolvers} from "./resolvers";
 
 const profiles_collection = createDb('profiles')
 const inputs_collection = createDb('inputs')
+const teams_collection = createDb('teams')
 
-Promise.all([profiles_collection, inputs_collection]).then((collections) => {
+Promise.all([profiles_collection, inputs_collection, teams_collection]).then((collections) => {
 
     let profiles = collections[0]
     let inputs = collections[1]
+    let teams = collections[2]
 
     const server = new ApolloServer({
         schema: buildFederatedSchema([{typeDefs, resolvers}]),
         context: ({req}) => {
-            let profile = new Profile({profiles, inputs, headers: req.headers})
+            let profile = new Profile({profiles, inputs, teams, headers: req.headers})
             return {
                 profile
             }
