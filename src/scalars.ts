@@ -1,6 +1,6 @@
 import {GraphQLScalarType} from "graphql";
 
-export const DateScalar = new GraphQLScalarType({
+const DateScalar = new GraphQLScalarType({
     name: 'Date',
     description: 'Normalize String to Javascript date and then back when returning to user',
     parseValue(value){
@@ -17,3 +17,7 @@ export const DateScalar = new GraphQLScalarType({
         return ast
     }
 })
+
+export default {
+    DateScalar
+}
