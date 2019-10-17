@@ -19,7 +19,6 @@ export class SecureResource {
 interface UserInterface {
     _id: ObjectId,
     email: string,
-    username: string,
+    userType: string,
     issuedAt: string,
-    roles: string
 }
